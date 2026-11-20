@@ -1,0 +1,9 @@
+{
+  "US": { "tier": "green", "corporateOnly": false },
+  "GB": { "tier": "green", "corporateOnly": false },
+  "DE": { "tier": "green", "corporateOnly": false },
+  "FR": { "tier": "green", "corporateOnly": false },
+  "RU": { "tier": "yellow", "corporateOnly": true },
+  "CN": { "tier": "red", "corporateOnly": true },
+  "default": { "tier": "yellow", "corporateOnly": false }
+}
