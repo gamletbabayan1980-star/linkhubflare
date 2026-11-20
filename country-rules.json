@@ -1,0 +1,15 @@
+{
+  "_note": "ЧЕРНОВИК. Составлен по открытым обзорам (2026), НЕ является юридической консультацией. Перед включением отправки таблицу должен проверить юрист (флаг legalReviewed в настройках).",
+  "_updated": "2026-11",
+  "US": { "name": "United States", "tier": "green", "corporateOnly": false, "law": "CAN-SPAM", "needs": ["opt-out", "postal address", "truthful sender and subject"], "note": "Модель отказа. Отписки исполнять быстро (до 10 рабочих дней)." },
+  "GB": { "name": "United Kingdom", "tier": "green", "corporateOnly": true, "law": "PECR + UK GDPR", "needs": ["identify sender", "opt-out", "lawful basis for personal data"], "note": "Только корпоративные адреса. ИП и часть партнёрств требуют согласия." },
+  "FR": { "name": "France", "tier": "green", "corporateOnly": true, "law": "LCEN + CNIL guidance", "needs": ["opt-out", "professional relevance", "data source"], "note": "Корпоративные адреса, тема должна касаться профессиональной деятельности." },
+  "NL": { "name": "Netherlands", "tier": "green", "corporateOnly": true, "law": "Telecommunicatiewet", "needs": ["opt-out", "published corporate address"], "note": "Опубликованные корпоративные адреса, обязательна отписка." },
+  "IE": { "name": "Ireland", "tier": "green", "corporateOnly": true, "law": "SI 336/2011", "needs": ["opt-out"], "note": "Только корпоративные абоненты." },
+  "DE": { "name": "Germany", "tier": "red", "law": "UWG §7", "note": "Нужно предварительное согласие (двойное подтверждение). Письма не готовятся." },
+  "IT": { "name": "Italy", "tier": "red", "law": "GDPR + national rules", "note": "Нужно согласие. Письма не готовятся." },
+  "ES": { "name": "Spain", "tier": "red", "law": "LSSI + GDPR", "note": "Нужно согласие. Письма не готовятся." },
+  "SE": { "name": "Sweden", "tier": "red", "law": "national rules", "note": "Источники расходятся, до проверки юристом считается красной." },
+  "CA": { "name": "Canada", "tier": "red", "law": "CASL", "note": "Нужно согласие до первого письма. Письма не готовятся." },
+  "AU": { "name": "Australia", "tier": "red", "law": "Spam Act 2003", "note": "Нужно согласие. Письма не готовятся." }
+}
