@@ -1,1 +1,66 @@
-PLACEHOLDER
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LinkHub Flare — кабинет</title><meta name="robots" content="noindex">
+<style>:root{--bg:#050b18;--card:#0d1a33;--line:#1f3a6b;--fg:#e8f0ff;--mut:#8fa6cc;--ac:#1c7bff}@media(prefers-color-scheme:light){:root{--bg:#f3f6fc;--card:#fff;--line:#c9d6ee;--fg:#0b1630;--mut:#51648a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px system-ui,sans-serif;padding:env(safe-area-inset-top) 14px 40px}
+main{max-width:860px;margin:0 auto}h1{font-size:22px}h2{font-size:18px;margin:22px 0 8px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+input,select,button{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%;margin:4px 0}
+button{background:var(--ac);border:0;color:#fff;font-weight:600;cursor:pointer;width:auto}button.o{background:none;border:1px solid var(--line);color:var(--fg)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.k{font-size:13px;color:var(--mut)}.n{font-size:22px;font-weight:700}
+.tag{display:inline-block;padding:2px 8px;border-radius:99px;border:1px solid var(--line);font-size:12px;margin-left:6px}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px;border-bottom:1px solid var(--line);text-align:left}.w{overflow-x:auto}.err{color:#ff6b6b}.ok{color:#3ddc97}</style></head>
+<body><main><div id="top"></div><div id="v"></div></main>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&","<":"<",">":">",'"':""","'":"&#39;"}[c]));
+const $$=c=>"$"+(c/100).toFixed(2);
+const I={"ru": {"home": "← на главную", "logout": "Выйти", "regB": "Регистрация покупателя", "regS": "Регистрация продавца", "email": "Email", "pass": "Пароль (мин. 8 символов)", "rBuyer": "Покупатель", "rSeller": "Продавец", "rBoth": "Покупатель и продавец", "doReg": "Зарегистрироваться", "doLogin": "Войти", "sellerH": "Продавец: мои сайты", "price": "Моя цена, $", "lang": "Язык (en)", "country": "Страна (US)", "addSite": "Добавить сайт", "myPrice": "моя цена", "trust": "доверие", "verifyTxt": "Подтвердите владение: добавьте TXT-запись для {h} со значением {v}, затем нажмите «Проверить».", "check": "Проверить", "ordersH": "Заказы на публикацию", "youGet": "Вам заплатят: {p}", "pubBy": "Опубликовать до {d}", "liveUrl": "URL страницы с ссылкой", "markPub": "Отметить опубликованным", "buyerH": "Покупатель: заказать ссылку", "target": "URL страницы (куда ссылаться)", "anchor": "Анкор", "category": "Категория", "budget": "Бюджет, $", "placeOrder": "Разместить заказ", "myOrders": "Мои заказы", "status": "Статус", "priceP": "Цена", "openDispute": "Открыть спор", "adminH": "Админ", "approve": "Одобрить", "reject": "Отклонить", "listings": "Площадки", "orders": "Заказы", "metrics": "Метрики", "checkLink": "Проверить ссылку", "discover": "Автопоиск", "notifications": "Уведомления", "settings": "Настройки"}};
+function t(k,o){let s=I.ru[k]||k; if(o) for(const x in o) s=s.replace('{'+x+'}',o[x]); return s;}
+async function api(path,opt={}){const r=await fetch('/api'+path,{credentials:'include',headers:{'content-type':'application/json'},...opt}); const j=await r.json().catch(()=>({})); if(!r.ok) throw new Error(j.error||r.status); return j;}
+function main(){
+  const top=$('#top'), v=$('#v');
+  top.innerHTML='<h1>LinkHub Flare</h1><p><a href="/">'+t('home')+'</a></p>';
+  (async()=>{
+    try{
+      const me=await api('/me');
+      if(me.admin) return renderAdmin();
+      if(me.user) return renderUser(me.user);
+    }catch{}
+    renderLogin();
+  })();
+  function renderLogin(){
+    v.innerHTML='<div class="card"><h2>'+t('doLogin')+'</h2><input id="em" placeholder="'+t('email')+'"><input id="pw" type="password" placeholder="'+t('pass')+'"><button onclick="doLogin()">'+t('doLogin')+'</button><p id="msg"></p></div>'+
+      '<div class="card"><h2>'+t('regB')+' / '+t('regS')+'</h2><input id="re" placeholder="'+t('email')+'"><input id="rp" type="password" placeholder="'+t('pass')+'"><select id="role"><option value="buyer">'+t('rBuyer')+'</option><option value="seller">'+t('rSeller')+'</option><option value="both">'+t('rBoth')+'</option></select><button onclick="doReg()">'+t('doReg')+'</button></div>';
+    window.doLogin=async()=>{try{await api('/login',{method:'POST',body:JSON.stringify({email:$('#em').value,password:$('#pw').value})}); location.reload();}catch(e){$('#msg').textContent=e.message;}};
+    window.doReg=async()=>{try{await api('/register',{method:'POST',body:JSON.stringify({email:$('#re').value,password:$('#rp').value,role:$('#role').value})}); location.reload();}catch(e){alert(e.message);}};
+  }
+  function renderAdmin(){
+    v.innerHTML='<div class="card"><h2>'+t('adminH')+'</h2><button onclick="logout()">'+t('logout')+'</button></div>'+
+      '<div class="card"><h2>'+t('listings')+'</h2><div id="lst"></div></div>'+
+      '<div class="card"><h2>'+t('orders')+'</h2><div id="ord"></div></div>'+
+      '<div class="card"><h2>'+t('checkLink')+'</h2><input id="chk" placeholder="https://..."><button onclick="checkLink()">'+t('check')+'</button><pre id="chkRes"></pre></div>'+
+      '<div class="card"><h2>'+t('discover')+'</h2><input id="dq" placeholder="query"><button onclick="discover()">'+t('discover')+'</button><div id="disc"></div></div>'+
+      '<div class="card"><h2>'+t('metrics')+'</h2><button onclick="loadMetrics()">'+t('metrics')+'</button><canvas id="chart" width="800" height="200" style="width:100%;background:#111"></canvas></div>';
+    window.logout=async()=>{await api('/logout',{method:'POST'}); location.reload();};
+    loadListings(); loadOrders();
+    window.checkLink=async()=>{const r=await api('/admin/check-link',{method:'POST',body:JSON.stringify({url:$('#chk').value})}); $('#chkRes').textContent=JSON.stringify(r,null,2);};
+    window.discover=async()=>{const r=await api('/admin/discover',{method:'POST',body:JSON.stringify({query:$('#dq').value})}); $('#disc').innerHTML=(r.candidates||[]).map(c=>'<div>'+esc(c.url)+' trust='+c.trust+' <button onclick="approveCand(\''+c.id+'\')">'+t('approve')+'</button></div>').join('');};
+    window.loadMetrics=async()=>{const r=await api('/admin/metrics?range=7d'); drawChart(r.history||[]);};
+  }
+  async function loadListings(){const r=await api('/admin/listings'); $('#lst').innerHTML=(r.listings||[]).map(l=>'<div>'+esc(l.domain)+' trust='+l.trust+' <button onclick="approve(\''+l.id+'\')">'+t('approve')+'</button> <button class="o" onclick="reject(\''+l.id+'\')">'+t('reject')+'</button></div>').join('');}
+  async function loadOrders(){const r=await api('/admin/orders'); $('#ord').innerHTML=(r.orders||[]).map(o=>'<div>'+esc(o.targetUrl)+' '+o.status+'</div>').join('');}
+  window.approve=async id=>{await api('/admin/listings/'+id+'/approve',{method:'POST'}); loadListings();};
+  window.reject=async id=>{await api('/admin/listings/'+id+'/reject',{method:'POST'}); loadListings();};
+  function drawChart(points){
+    const c=$('#chart'); if(!c) return; const ctx=c.getContext('2d'); const W=c.width,H=c.height,pad=20;
+    ctx.clearRect(0,0,W,H); if(!points.length) return;
+    const series=[{key:'score',color:'#1c7bff',max:100},{key:'traffic',color:'#52d7ad',max:null}];
+    const maxT=Math.max(1,...points.map(p=>Number(p.traffic)||0)); series[1].max=maxT;
+    const n=points.length, xAt=i=>pad+(W-2*pad)*(n===1?0.5:i/(n-1)), yAt=(v,max)=>pad+(H-2*pad)*(1-Math.max(0,Math.min(1,(Number(v)||0)/max)));
+    for(const s of series){
+      const vals=points.map(p=>p[s.key]); if(vals.every(v=>v==null)) continue;
+      ctx.strokeStyle=s.color; ctx.lineWidth=2; ctx.beginPath(); let st=false;
+      vals.forEach((v,i)=>{if(v==null)return; const x=xAt(i),y=yAt(v,s.max); if(!st){ctx.moveTo(x,y);st=true;}else ctx.lineTo(x,y);}); ctx.stroke();
+    }
+  }
+  function renderUser(u){v.innerHTML='<div class="card"><h2>'+esc(u.email)+'</h2><button onclick="logout()">'+t('logout')+'</button></div>'; window.logout=async()=>{await api('/logout',{method:'POST'}); location.reload();};}
+}
+main();
+</script></body></html>
