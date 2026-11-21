@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Админка — LinkHub Flare</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f1115; color: #e8e8e8; margin: 0; padding: 20px; }
+    h1 { font-size: 1.6rem; }
+    input, button { font-size: 16px; padding: 10px; margin: 6px 0; border-radius: 8px; border: 1px solid #333; background: #1a1d24; color: #fff; }
+    button { background: #3b5bdb; border: none; cursor: pointer; }
+    .ok { color: #51cf66; }
+  </style>
+</head>
+<body>
+  <h1>Админка</h1>
+  <p>Введи код доступа:</p>
+  <input id="code" type="password" placeholder="ERINMAR" />
+  <br>
+  <button onclick="login()">Войти</button>
+  <p id="msg"></p>
+  <script>
+    async function login() {
+      const code = document.getElementById('code').value;
+      const r = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ code })
+      });
+      const j = await r.json().catch(() => ({}));
+      document.getElementById('msg').textContent = r.ok ? 'Вход выполнен' : (j.error || 'Ошибка');
+      document.getElementById('msg').className = r.ok ? 'ok' : '';
+    }
+  </script>
+</body>
+</html>
