@@ -1,0 +1,14 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LinkHub Flare — кабинет</title><meta name="robots" content="noindex">
+<style>:root{--bg:#050b18;--card:#0d1a33;--line:#1f3a6b;--fg:#e8f0ff;--mut:#8fa6cc;--ac:#1c7bff}@media(prefers-color-scheme:light){:root{--bg:#f3f6fc;--card:#fff;--line:#c9d6ee;--fg:#0b1630;--mut:#51648a}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px system-ui,sans-serif;padding:env(safe-area-inset-top) 14px 40px}
+main{max-width:860px;margin:0 auto}h1{font-size:22px}h2{font-size:18px;margin:22px 0 8px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+input,select,button{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--fg);width:100%;margin:4px 0}
+button{background:var(--ac);border:0;color:#fff;font-weight:600;cursor:pointer;width:auto}button.o{background:none;border:1px solid var(--line);color:var(--fg)}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.k{font-size:13px;color:var(--mut)}.n{font-size:22px;font-weight:700}
+.tag{display:inline-block;padding:2px 8px;border-radius:99px;border:1px solid var(--line);font-size:12px;margin-left:6px}table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px;border-bottom:1px solid var(--line);text-align:left}.w{overflow-x:auto}.err{color:#ff6b6b}.ok{color:#3ddc97}</style></head>
+<body><main><div id="top"></div><div id="v"></div></main>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const $$=c=>"$"+(c/100).toFixed(2);
+const I={"ru": {"home": "← на главную", "logout": "Выйти", "regB": "Регистрация покупателя", "regS": "Регистрация продавца", "email": "Email", "pass": "Пароль (мин. 8 символов)", "rBuyer": "Покупатель", "rSeller": "Продавец", "rBoth": "Покупатель и продавец", "doReg": "Зарегистрироваться", "doLogin": "Войти"
