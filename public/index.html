@@ -1,4 +1,24 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Unsubscribe — LinkHub Flare</title>
-<style>body{font:16px system-ui,sans-serif;max-width:480px;margin:12vh auto;padding:0 16px;text-align:center}button{font:inherit;padding:12px 22px;border-radius:10px;border:0;background:#1c7bff;color:#fff;cursor:pointer}</style></head>
-<body><h1>Unsubscribe</h1><p id="m">Click the button to stop receiving messages from LinkHub Flare.</p><button id="b">Unsubscribe</button>
-<script>document.getElementById("b").onclick=async function(){var t=new URLSearchParams(location.search).get("t")||"";try{var r=await fetch("/api/unsubscribe",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({t:t})});document.getElementById("m").textContent=r.ok?"Done. You will not receive more messages from us.":"This link is invalid or expired. Please reply to the email and ask us to remove you.";if(r.ok)document.getElementById("b").remove()}catch(e){document.getElementById("m").textContent="Network error. Please try again."}}</script></body></html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinkHub Flare</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f1115; color: #e8e8e8; margin: 0; padding: 40px 20px; text-align: center; }
+    h1 { font-size: 2.2rem; margin-bottom: 8px; }
+    p { color: #9aa0a6; }
+    a { color: #7c9cff; }
+    .box { max-width: 480px; margin: 40px auto; padding: 24px; background: #1a1d24; border-radius: 12px; }
+  </style>
+</head>
+<body>
+  <h1>LinkHub Flare</h1>
+  <p>Платформа линкбилдинга</p>
+  <div class="box">
+    <p>Сайт запущен.</p>
+    <p><a href="/app/">Админка</a></p>
+    <p style="font-size:14px;color:#666">Для входа в админку удерживай экран 2 секунды и введи ERINMAR</p>
+  </div>
+</body>
+</html>
